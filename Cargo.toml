@@ -1,0 +1,18 @@
+[package]
+name = "frontline-controller"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+uuid = { version = "0.4", features = ["serde", "v4"] }
+chrono = "0.4"
+toml = "0.4.2"
+serde = { version = "1.0", features = ["derive"] }
+sysinfo = "0.28.2"
+rustls = "0.20.8"
+webpki-roots = "0.22.6"
+blake2 = "0.9"
+base64 = "0.13"
+
+[dependencies.redis]
+version = "*"
