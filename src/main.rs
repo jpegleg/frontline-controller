@@ -284,7 +284,6 @@ fn main() {
                         let _out = redisset(&"cooloff".to_string(), "0".to_string());
 
                     }
-
                 }
 
             }
