@@ -75,10 +75,7 @@ pub fn apiter(policyitem: String, policyurl: String, healthslot: String ) {
         if healthe < 100 {
             let newstate = healthe + 1; 
             let _mop1 = redisset(&healthslot, newstate.to_string());
-        } else {
-            let newstate = healthe - 4;
-            let _mop1 = redisset(&healthslot, newstate.to_string());
-        }    
+        }   
     } else {
         let newstate = healthe - 4;
         let _mop1 = redisset(&healthslot, newstate.to_string());
