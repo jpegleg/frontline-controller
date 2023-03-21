@@ -261,8 +261,8 @@ fn main() {
                 if health < 92 {
                     if cooloff == 0 {
                         println!("{} {} STARTING AUTOMATED RECOVERY local1", &readu, &uid);
-                        let _mop = reactions::local1(&uid);
                         let _hog = redisset(&"cooloff".to_string(), "1".to_string());
+                        let _mop = reactions::local1(&uid);
                         thread::sleep(time::Duration::from_millis(540000));
                         let _out = redisset(&"cooloff".to_string(), "0".to_string());
 
@@ -275,8 +275,8 @@ fn main() {
                 if health1 < 75 {
                     if cooloff == 0 {
                         println!("{} {} STARTING AUTOMATED RECOVERY a1", &readu, &uid);
+                        let _hog = redisset(&"cooloff".to_string(), "1".to_string());                        
                         let _mop = reactions::a1(&uid);
-                        let _hog = redisset(&"cooloff".to_string(), "1".to_string());
                         thread::sleep(time::Duration::from_millis(540000));
                         let _out = redisset(&"cooloff".to_string(), "0".to_string());
 
@@ -290,8 +290,8 @@ fn main() {
                 if health2 < 75 {
                     if cooloff == 0 {
                         println!("{} {} STARTING AUTOMATED RECOVERY b1", &readu, &uid);
-                        let _mop = reactions::b1(&uid);
                         let _hog = redisset(&"cooloff".to_string(), "1".to_string());
+                        let _mop = reactions::b1(&uid);
                         thread::sleep(time::Duration::from_millis(540000));
                         let _out = redisset(&"cooloff".to_string(), "0".to_string());
                     }
@@ -304,8 +304,8 @@ fn main() {
                 if health3 < 75 {
                     if cooloff == 0 {
                         println!("{} {} STARTING AUTOMATED RECOVERY c1", &readu, &uid);
+                        let _hog = redisset(&"cooloff".to_string(), "1".to_string());                        
                         let _mop = reactions::c1(&uid);
-                        let _hog = redisset(&"cooloff".to_string(), "1".to_string());
                         thread::sleep(time::Duration::from_millis(540000));
                         let _out = redisset(&"cooloff".to_string(), "0".to_string());
                     }
@@ -318,8 +318,8 @@ fn main() {
                 if health4 < 75 {
                     if cooloff == 0 {
                         println!("{} {} STARTING AUTOMATED RECOVERY d1", &readu, &uid);
+                        let _hog = redisset(&"cooloff".to_string(), "1".to_string());                        
                         let _mop = reactions::d1(&uid);
-                        let _hog = redisset(&"cooloff".to_string(), "1".to_string());
                         thread::sleep(time::Duration::from_millis(540000));
                         let _out = redisset(&"cooloff".to_string(), "0".to_string());
                     }
