@@ -287,7 +287,7 @@ fn main() {
 
             if health2 < 99 {
                 println!("{} {} Health2 is at: {} <-+-+-+-<<<", &readu, &uid, health2);
-                if health1 < 75 {
+                if health2 < 75 {
                     if cooloff == 0 {
                         println!("{} {} STARTING AUTOMATED RECOVERY b1", &readu, &uid);
                         let _mop = reactions::b1(&uid);
@@ -301,7 +301,7 @@ fn main() {
 
             if health3 < 99 {
                 println!("{} {} Health3 is at: {} <-+-+-+-<<<", &readu, &uid, health3);
-                if health1 < 75 {
+                if health3 < 75 {
                     if cooloff == 0 {
                         println!("{} {} STARTING AUTOMATED RECOVERY c1", &readu, &uid);
                         let _mop = reactions::c1(&uid);
