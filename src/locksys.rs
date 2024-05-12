@@ -46,12 +46,26 @@ pub fn netz() -> String {
     format!("{}", count)
 }
 
-pub fn cpuz() -> String {
-    let system = System::new_all();
-    let cpu_usage = system.cpus()
-        .iter()
-        .map(|p| p.cpu_usage())
-        .sum::<f32>() / system.cpus().len() as f32;
 
-    format!("{:.2}", cpu_usage)
+pub fn cpuz() -> String {
+    let output = Command::new("cat")
+        .arg("/proc/loadavg")
+        .output()
+        .expect("failed to execute cat");
+
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let count: Vec<_> = stdout.chars().collect();
+    let str = count.iter().take(4).map(char::to_string).collect::<Vec<String>>();
+    format!("{}{}{}{}", count[0], count[1], count[2], count[3])
 }
+
+// sysinfo cpu measure is busted:
+//pub fn cpuz() -> String {
+//    let system = System::new_all();
+//    let cpu_usage = system.cpus()
+//        .iter()
+//        .map(|p| p.cpu_usage())
+//        .sum::<f32>() / system.cpus().len() as f32;
+//
+//    format!("{:.2}", cpu_usage)
+//}
