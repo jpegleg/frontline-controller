@@ -6,7 +6,7 @@ Have redis running on the loopback device where the frontline-controller runs.
 The policy.toml must be constructed to instruct the controller.
 
 net is a float of max network connections before we decrement the health counter
-cpu is a float of max percent CPU (note less sensitive than "uptime" load average from sysinfo) usage 0.80 for 80%
+cpu is a float of max percent CPU (note sysinfo CPU measurements are BROKEN, so we'll sample from /proc/loadavg instead) usage 0.80 for 80%
 mem is a float of the max percent RAM (note sufficiently sensitive ) usage 0.75 for 75%
 dsk is a float of percentage of the "/" partition/slice disk usage 89.00 for 89%
 
@@ -101,5 +101,6 @@ The reactions.rs contains the reactive functions to execution when thresholds of
 - more logic examples, including the "long lock" and "known progress since" examples.
 - improve redis interaction with batch queries (this will probably be one of the next areas worked on)
 - add feature for known error state matching
+- continued work to eliminate Command calls
 
 The network connections metric, or any of the metrics, can be swapped out for other probes such as inodes or logged in users. The probes for the local system go in locksys.rs. The container version doesn't need locksys.rs or that entire thread and can move to being two threads.
