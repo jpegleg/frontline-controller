@@ -55,7 +55,6 @@ pub fn cpuz() -> String {
 
     let stdout = String::from_utf8_lossy(&output.stdout);
     let count: Vec<_> = stdout.chars().collect();
-    let str = count.iter().take(4).map(char::to_string).collect::<Vec<String>>();
     format!("{}{}{}{}", count[0], count[1], count[2], count[3])
 }
 
