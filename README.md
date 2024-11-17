@@ -1,14 +1,16 @@
 # frontline-controller
 MDP-like threaded controller daemon with loopback redis storage
 
-Have redis running on the loopback device where the frontline-controller runs.
+Also see the related project https://github.com/jpegleg/dark-star-controller that does not use persistent storage.
+
+Frontline-controller uses redis (or valkey) running on the loopback device where the frontline-controller runs.
 
 The policy.toml must be constructed to instruct the controller.
 
-net is a float of max network connections before we decrement the health counter
-cpu is a float of max percent CPU (note sysinfo CPU measurements are BROKEN, so we'll sample from /proc/loadavg instead) usage 0.80 for 80%
-mem is a float of the max percent RAM (note sufficiently sensitive ) usage 0.75 for 75%
-dsk is a float of percentage of the "/" partition/slice disk usage 89.00 for 89%
+- net is a float of max network connections before we decrement the health counter
+- cpu is a float of max percent CPU (note sysinfo CPU measurements are BROKEN, see https://github.com/jpegleg/dark-star-controller/blob/main/src/main.rs for a better way to do this, but in this example we'll sample from /proc/loadavg instead) usage 0.80 for 80%
+- mem is a float of the max percent RAM (note sufficiently sensitive ) usage 0.75 for 75%
+- dsk is a float of percentage of the "/" partition/slice disk usage 89.00 for 89%
 
 The url is the fqdn: google.com
 the urlp is the fqdn with port: google.com:443
@@ -25,7 +27,7 @@ health3 = "health03"
 health4 = "health04"
 ```
 
-So `echo "get health02" | redis-cli` returns 100 if the health score for endpoint 02 is at max. THe health will dip down if probes continue to fail. If we have "flapping", the health score will dip then quickly come back up over and over. Other programs and controlls can also then tap into the data via redis reads, or even writes if we are careful :)
+So `echo "get health02" | redis-cli` returns 100 if the health score for endpoint 02 is at max. THe health will dip down if probes continue to fail. If we have "flapping", the health score will dip then quickly come back up over and over. Other programs and controls can also then tap into the data via redis reads, or even writes if we are careful :)
 
 This means we can overlap the scores if we wanted to link the health logic, even between controllers. By default I find having these separate is useful though.
 
@@ -42,7 +44,7 @@ If we want to use logic on a value that always changes, then we should invert th
 
 The STDERR output is the 4 API slots rustls ciphersuites used, while the controller STDOUT has the sampled vs policy comparisons of the net, sys, cpu, dsk, values, and will print audit logging if automation is triggered.
 
-This controller is not meant to run inside containers although could be used that way easily too, instead the general design it is meant to run on the underlying host or VM of an automation node that reacts to repeated error or risk detection and reactions. This template allows us to customize the logic and reactions of the controller, providing an example of having local eactions to clean up disk space and remote IR reactions to SSH and execute API commands. If we run it in a container, we might not have the same local thread logic at all and instead only have API connection logic.
+This controller is not meant to run inside containers although could be used that way easily too, instead the general design is meant to run on the underlying host or VM of an automation node that reacts to repeated error or risk detection and reactions. This template allows us to customize the logic and reactions of the controller, providing an example of having local reactions to clean up disk space and remote IR reactions to SSH and execute API commands. If we run it in a container, we might not have the same local thread logic at all and instead only have API connection logic.
 
 Statically compiling the binary example:
 ```
